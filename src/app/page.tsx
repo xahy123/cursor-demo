@@ -1,100 +1,121 @@
+"use client";
 import Image from "next/image";
+import { FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { useState } from "react";
+import { RainbowButton } from "@/components/ui/rainbow-button";
+import Ripple from "@/components/ui/ripple";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/* Header */}
+      <header className="flex justify-between items-center p-8 relative">
+        <div className="text-2xl font-bold">mnmlst.</div>
+        <nav className="hidden md:block">
+          <ul className="flex gap-8">
+            <li><a href="#" className="hover:opacity-70">HOME</a></li>
+            <li><a href="#" className="hover:opacity-70">PRODUCT</a></li>
+            <li><a href="#" className="hover:opacity-70">STORE</a></li>
+            <li><a href="#" className="hover:opacity-70">ABOUT US</a></li>
+          </ul>
+        </nav>
+        
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden z-20"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <div className="space-y-2">
+            <span className={`block w-8 h-0.5 bg-black transition-transform ${isMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
+            <span className={`block w-8 h-0.5 bg-black transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block w-8 h-0.5 bg-black transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+          </div>
+        </button>
+
+        {/* Mobile Menu */}
+        <div className={`
+          fixed inset-0 bg-white z-10 md:hidden
+          transition-transform duration-300 ease-in-out
+          ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+        `}>
+          <div className="flex flex-col items-center justify-center h-full">
+            <ul className="flex flex-col gap-8 text-center text-xl">
+              <li><a href="#" className="hover:opacity-70">HOME</a></li>
+              <li><a href="#" className="hover:opacity-70">PRODUCT</a></li>
+              <li><a href="#" className="hover:opacity-70">STORE</a></li>
+              <li><a href="#" className="hover:opacity-70">ABOUT US</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1 grid grid-cols-1 md:grid-cols-3 items-center px-8 md:px-16 gap-8 max-w-7xl mx-auto">
+        {/* Left content */}
+        <div className="max-w-md order-3 md:order-none flex flex-col items-center md:items-start md:pl-0 md:justify-self-start">
+          <p className="mb-6 text-lg text-center md:text-left">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Vestibulum ultrices fi......
+          </p>
+          <RainbowButton>
+            Read More
+          </RainbowButton>
+        </div>
+
+        {/* Center content - Yellow circle and profile */}
+        <div className="relative w-full aspect-square order-1 md:order-none">
+          {/* Yellow circle background */}
+          <div className="absolute left-[55%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[42%] aspect-square">
+            <div className="w-full h-full  rounded-full relative">
+              <Ripple 
+                
+                mainCircleOpacity={.3}
+                numCircles={2}
+                className="[mask-image:none]"
+              />
+            </div>
+          </div>
+          
+          {/* Profile image */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] md:w-[400px]">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/profile.png"
+              alt="Profile"
+              width={800}
+              height={1600}
+              className="w-full h-auto object-cover"
+              priority
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
+        </div>
+
+        {/* Right content - Slogan */}
+        <div className="flex items-center justify-center order-2 md:order-none md:justify-self-end">
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight text-center md:text-right">
+            less is<br />more.
+          </h1>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="flex justify-between items-center p-8">
+        <div className="flex gap-4">
+          <a href="#" className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:opacity-80">
+            <FaFacebookF size={18} />
+          </a>
+          <a href="#" className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:opacity-80">
+            <FaInstagram size={18} />
+          </a>
+          <a href="#" className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:opacity-80">
+            <FaTwitter size={18} />
+          </a>
+          <a href="#" className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:opacity-80">
+            <FaWhatsapp size={18} />
+          </a>
+        </div>
+        <div>Arlington Heights, IL</div>
       </footer>
     </div>
   );
